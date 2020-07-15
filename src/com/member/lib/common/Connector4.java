@@ -45,18 +45,26 @@ public class Connector4 {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			try {
-				if(rs != null) {
+			if(rs != null) {
+				try {
 					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-				if(stmt != null) {
+			}
+			if(stmt != null) {
+				try {
 					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-				if(con != null) {
+			}
+			if(con != null) {
+				try {
 					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-			}catch(SQLException e) {
-				e.printStackTrace(); 
 			}
 		}
 	}
