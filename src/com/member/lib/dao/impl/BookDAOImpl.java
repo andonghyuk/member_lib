@@ -42,7 +42,7 @@ public class BookDAOImpl implements BookDAO {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return result;
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class BookDAOImpl implements BookDAO {
 //		int result = bdao.deleteBook(21);
 //		System.out.println("삭제갯수 : " + result);
 		
-		map.put("b_num", 23);
+		map.put("b_num", 1);
 		int result = bdao.updateBook(map);
 		System.out.println("수정갯수 : " + result);
 	}
