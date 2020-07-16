@@ -1,5 +1,6 @@
 package com.member.lib.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +15,14 @@ public class LentServiceImpl implements LentService {
 	
 	@Override
 	public Map<String, Object> insertLent(Map<String, Object> lent) {
-		
-		
-		return null;
+		int result = lentDAO.insertLent(lent);
+		Map<String, Object> rMap = new HashMap<>();
+		rMap.put("msg", "대여 완료");
+		if(result != 1) {
+			rMap.put("msg", "대여 불가");
+		}
+		rMap.put("cnt", result);
+		return rMap;
 	}
 
 	@Override
@@ -37,6 +43,12 @@ public class LentServiceImpl implements LentService {
 	@Override
 	public Map<String, Object> selectLent(int lNum) {
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		LentService lentService = new LentServiceImpl();
+		Map<String, Object> lent = new HashMap<>();
+		lent.put("l_num","");
 	}
 
 }
