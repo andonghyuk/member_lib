@@ -9,16 +9,14 @@ import com.member.lib.dao.impl.MemberDAOImpl;
 import com.member.lib.service.MemberService;
 
 public class MemberServiceImpl implements MemberService {
-
 	private MemberDAO memberDAO = new MemberDAOImpl();
-
 	@Override
 	public Map<String, Object> insertMember(Map<String, Object> member) {
 		int result = memberDAO.insertMember(member);
 		Map<String, Object> rMap = new HashMap<>();
-		rMap.put("msp", "멤버 등록 완료");
-		if (result != 1) {
-			rMap.put("msp", "멤버등록 오류!");
+		rMap.put("msg", "멤버등록 완료~");
+		if(result!=1) {
+			rMap.put("msg", "멤버등록 오류!");
 		}
 		rMap.put("cnt", result);
 		return rMap;
@@ -28,9 +26,9 @@ public class MemberServiceImpl implements MemberService {
 	public Map<String, Object> updateMember(Map<String, Object> member) {
 		int result = memberDAO.updateMember(member);
 		Map<String, Object> rMap = new HashMap<>();
-		rMap.put("msp", "멤버 업뎃 완료");
-		if (result != 1) {
-			rMap.put("msp", "멤버 업뎃 오류!");
+		rMap.put("msg", "멤버수정 완료~");
+		if(result!=1) {
+			rMap.put("msg", "멤버수정 오류!");
 		}
 		rMap.put("cnt", result);
 		return rMap;
@@ -40,9 +38,9 @@ public class MemberServiceImpl implements MemberService {
 	public Map<String, Object> deleteMember(int mNum) {
 		int result = memberDAO.deleteMember(mNum);
 		Map<String, Object> rMap = new HashMap<>();
-		rMap.put("msp", "멤버 삭제 완료");
-		if (result != 1) {
-			rMap.put("msp", "멤버삭제 오류!");
+		rMap.put("msg", "멤버삭제 완료~");
+		if(result!=1) {
+			rMap.put("msg", "멤버삭제 오류!");
 		}
 		rMap.put("cnt", result);
 		return rMap;
@@ -60,29 +58,23 @@ public class MemberServiceImpl implements MemberService {
 
 	public static void main(String[] args) {
 		MemberService memberService = new MemberServiceImpl();
-		Map<String, Object> rMap = memberService.deleteMember(21);
+//		Map<String,Object> rMap = memberService.deleteMember(21);
 //		System.out.println(rMap);
-
-		Map<String, Object> member = new HashMap<>();
+		Map<String,Object> member = new HashMap<>();
 		member.put("m_name", "차차");
-		member.put("m_id", "cjccv");
-		member.put("m_pwd", "12314");
-		member.put("m_num", 41);
-		
-//		rMap = memberService.insertMember(member);
+		member.put("m_id", "chacha1");
+		member.put("m_pwd", "1234");
+		member.put("m_num", 1);
+//		Map<String,Object> rMap = memberService.insertMember(member);
 //		System.out.println(rMap);
-
-//		List<Map<String, Object>> memberList = memberService.selectMemberList(member);
-//		for (Map<String, Object> mem : memberList) {
-//			System.out.println(mem);
-//		}
-		
-//		System.out.println(memberService.selectMember(41));
-		
-
-		rMap = memberService.updateMember(member);
-		System.out.println(rMap);
-		
+		List<Map<String,Object>> memberList = memberService.selectMemberList(member);
+		for(Map<String,Object> mem:memberList) {
+			System.out.println(mem);
+		}
+		System.out.println(memberService.updateMember(member));
+		memberList = memberService.selectMemberList(member);
+		for(Map<String,Object> mem:memberList) {
+			System.out.println(mem);
+		}
 	}
-
 }

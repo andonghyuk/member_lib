@@ -27,7 +27,14 @@ public class LentServiceImpl implements LentService {
 
 	@Override
 	public Map<String, Object> updateLent(Map<String, Object> lent) {
-		return null;
+		int result = lentDAO.updateLent(lent);
+		Map<String, Object> rMap = new HashMap<>();
+		rMap.put("msg", "대여 정보 업데이트 성공");
+		if(result != 1) {
+			rMap.put("msg", "대여 정보 업데이트 실패");
+		}
+		rMap.put("cnt", result);
+		return rMap;
 	}
 
 	@Override
@@ -48,7 +55,10 @@ public class LentServiceImpl implements LentService {
 	public static void main(String[] args) {
 		LentService lentService = new LentServiceImpl();
 		Map<String, Object> lent = new HashMap<>();
-		lent.put("l_num","");
+		lent.put("m_num",44);
+		lent.put("b_num",23);
+		System.out.println(lentService.insertLent(lent));
+//		System.out.println(lentService.updateLent(lent));
 	}
 
 }

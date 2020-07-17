@@ -21,7 +21,7 @@ public class LentDAOImpl implements LentDAO {
 		int result = 0;
 		try {
 			con = Connector.open();
-			String sql = "insert into lent(l_num, l_lentdate, m_num, b_num)";
+			String sql = "insert into lent(l_num, l_lentdat, m_num, b_num)";
 			sql += " values(seq_lent_l_num.nextval,sysdate,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, lent.get("m_num").toString());

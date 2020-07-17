@@ -19,16 +19,16 @@ public class MemberDAOImpl implements MemberDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-
 		try {
 			con = Connector.open();
-			String sql = "insert into member(m_num, m_name, m_id, m_pwd, m_credat)\r\n"
-					+ "values(SEQ_MEMBER_M_NUM.nextval, ?, ?,?,sysdate)";
+			String sql = "insert into member(m_num, m_name, m_id, m_pwd, m_credat)";
+			sql += " values(seq_member_m_num.nextval, ?,?,?,sysdate)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, member.get("m_name").toString());
 			ps.setString(2, member.get("m_id").toString());
 			ps.setString(3, member.get("m_pwd").toString());
 			result = ps.executeUpdate();
+			con.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -39,11 +39,10 @@ public class MemberDAOImpl implements MemberDAO {
 				if (con != null) {
 					con.close();
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return result;
 	}
 
@@ -105,7 +104,7 @@ public class MemberDAOImpl implements MemberDAO {
 				if (con != null) {
 					con.close();
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -132,7 +131,6 @@ public class MemberDAOImpl implements MemberDAO {
 				map.put("m_credat", rs.getString("m_credat"));
 				memberList.add(map);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -143,7 +141,7 @@ public class MemberDAOImpl implements MemberDAO {
 				if (con != null) {
 					con.close();
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -186,26 +184,5 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		return null;
 	}
-	
-	
-	public static void main(String[] args) {
-		MemberDAO mdao = new MemberDAOImpl();
-		Map<String, Object> map = new HashMap<>();
-		map.put("m_name", "남궁성");
-		map.put("m_id", "nmg21");
-		map.put("m_pwd", "124112");
-		mdao.insertMember(map);
 
-//		List<Map<String, Object>> memberList = mdao.selectMemberList(map);
-//		System.out.println(memberList);
-		
-//		System.out.println(mdao.selectMember(21));
-		
-//		int result = mdao.deleteMember(21);
-//		System.out.println("삭제갯수 : " + result);
-		
-//		map.put("m_num", 21);
-//		int result = mdao.updateMember(map);
-//		System.out.println("수정갯수 : " + result);
-	}
 }
