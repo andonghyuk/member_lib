@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,10 @@ public class MemberServlet extends HttpServlet {
 		String str = "";
 		if ("/member/list".equals(uri)) {
 			List<Map<String, Object>> memberList = memberService.selectMemberList(null);
-			str = memberList.toString();
+			request.setAttribute("memberList", memberList);
+			RequestDispatcher rd = request.getRequestDispatcher("/views/member/member-list");
+			rd.forward(request, response);
+			return;
 		} else if ("/member/view".equals(uri)) {
 			String m_num = request.getParameter("m_num");
 			if (m_num == null || "".equals(m_num.trim())) {
@@ -39,6 +43,10 @@ public class MemberServlet extends HttpServlet {
 			int mNum = Integer.parseInt(m_num);
 			MemberService memberService = new MemberServiceImpl();
 			Map<String, Object> member = memberService.selectMember(mNum);
+			request.setAttribute("member", member);
+			RequestDispatcher rd = request.getRequestDispatcher("/views/member/member-view");
+			rd.forward(request, response);
+			
 			if (member != null) {
 				str = member.toString();
 			} else {
