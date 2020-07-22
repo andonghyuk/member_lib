@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" action="/member/update" id="frm">
+<form method="post" action="/lent/update" id="frm">
 <input type="hidden" name="m_num" value="${member.m_num}">
 <table border="1">
 	<tr>

@@ -61,4 +61,9 @@ public class LentServiceImpl implements LentService {
 //		System.out.println(lentService.updateLent(lent));
 	}
 
+	@Override
+	public List<Map<String, Object>> selectNoLentBookList() {
+		return lentDAO.selectNoLentBookList();
+	}
+
 }
