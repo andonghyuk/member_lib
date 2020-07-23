@@ -117,16 +117,20 @@ public class LentDAOImpl implements LentDAO {
 		ResultSet rs = null;
 		try {
 			con = Connector.open();
-			String sql = "select l_num, l_lentdate, l_recdate, m_num, b_num from lent";
+			String sql = "SELECT L.*,M.M_NAME,B.B_TITLE FROM LENT L, MEMBER M, BOOK B\r\n" + 
+					"WHERE L.M_NUM = M.M_NUM\r\n" + 
+					"AND L.B_NUM = B.B_NUM";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				Map<String, Object> map = new HashMap<>();
 				map.put("l_num", rs.getInt("l_num"));
-				map.put("l_lentdate", rs.getString("l_lentdate"));
-				map.put("l_recdate", rs.getString("l_recdate"));
+				map.put("l_lentdat", rs.getString("l_lentdat"));
+				map.put("l_recdat", rs.getString("l_recdat"));
 				map.put("m_num", rs.getString("m_num"));
 				map.put("b_num", rs.getString("b_num"));
+				map.put("m_name", rs.getString("m_name"));
+				map.put("b_title", rs.getString("b_title"));
 				lentList.add(map);
 			}
 		} catch (Exception e) {
